@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="border p-3">
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-3">متأكد من حذف , {{object.title}}</legend>
+
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger">نعم ز حذف! </button>
+                <a href="{% url 'blog:post' pk=object.pk %}" class="btn btn-outline-secondary">إلغاء</a>
+
+            </div>
+        </form>
+    </div>
+{% endblock %}

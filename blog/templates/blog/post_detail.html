@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+    
+    <div class="card mb-5" dir="rtl">
+        <div class="card-body">
+          <div class="head-div" style="display: flex;">
+            <div class="photo">
+              <img src="{{post.author.profile.imge.url}}" class="rounded-circle" height="100" width="100" alt="user-photo">
+            </div>
+            <p class="pt-5 mr-2">نشر <a href="{% url 'blog:author-posts' post.author.username %}"> <b>{{object.author}}</b> </a> في <small> {{object.date_posted}} </small> 
+            </p>
+          </div>
+           {% if post.author == request.user %}
+            <div>
+              <a class="btn btn-outline-secondary mr-5 mt-3" href="{% url 'blog:update-post' pk=post.pk %}">تعديل</a>
+              <a class="btn btn-outline-danger mr-2 mt-3" href="{% url 'blog:delete-post' pk=post.pk %}">حذف</a>
+            </div>
+          {% endif %}
+          <hr>
+          <h3 class="card-title">{{object.العنوان}}</h3>
+          <p class="card-text pl-5">{{object.المحتوى}}</p>
+          
+        </div>
+         <!-- <a class="btn btn-outline-info mb-5 add-comment">كتابة تعليق</a> -->
+          <form action="{% url 'blog:comment'%}" id="comment-form" class="comment-form" method="POST">
+            {% csrf_token %}
+            <input class="comment-content" type="text" name="content" placeholder="اكتب تعليقا هنا">
+            <input class="hidden" type="number" name="id" value="{{post.id}}">
+            <input class="comment-confirm-btn btn btn-outline-success" type="submit" name="confirm" value="إضافة ">
+          </form>
+          <div class="pl-3 mb-3 comment-div  border-bottom">
+          {% for comment in object.comment_set.all %}
+            <div class="d-flex m-1 bg-light">
+              <img src="{{comment.author.profile.imge.url}}" class="rounded-circle" height="50" width="50" alt="user-photo">
+              <div class="comment-body">
+              <h5> {{comment.author}}</h5>
+              <h6 class="pr-5">{{comment.content}}</h6>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+         
+      </div>
+        
+    <script type="text/javascript" src="{% static 'blog/js/post.js' %}"></script>
+{% endblock content %}

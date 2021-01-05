@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="border p-3 bg-light">
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-3">انضم الآن</legend>
+                {{form | crispy}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info">تسجيل</button>
+
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">لديك حساب ? <a href="{% url 'login' %}" class="ml-3">دخول</a></small>
+        </div>
+    </div>
+{% endblock %}

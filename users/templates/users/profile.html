@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container border p-2 bg-light" >
+        <div class="p-1" style="display:flex;">
+            <div class="left">
+                <img src="{{ user.profile.imge.url }}" class="rounded-circle" width="150" height="150">
+            </div>
+            <div class="righ mr-5">
+                <h1>{{user.username}}</h1>
+                <h5><a href="#">{{user.email}}</a></h5>
+            </div>   
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">تعديل البيانات</legend>
+                {{u_form|crispy}}
+                {{p_form|crispy}}
+            </fieldset>
+            <div class="form-gtoup">
+                <button class="btn btn-outline-info" type="submit">تعديل</button>
+            </div>
+            
+        </form>
+    </div>
+    
+    
+    
+{% endblock %}
